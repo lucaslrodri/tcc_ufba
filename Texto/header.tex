@@ -1,0 +1,175 @@
+%%%
+%%% CARREGANDO PACOTES
+%%%
+
+\documentclass[
+	openright, % Capítulos começam em página direita
+	twoside,   % Impressão frente e verso
+	a4paper,   % Tamanho do papel
+	english,   % Idioma adiciona para hifenizaçãoo
+	brazil     % O ultimo é o idioma principal
+]{abntex2}
+
+\usepackage{lmodern}                               % Usa família de fontes Latin Modern
+\renewcommand*\familydefault{\sfdefault}           % Usa fonte Latin Modern Sans (Sem serifa)
+\usepackage[T1]{fontenc}                           % Codifição Type1 para a fonte (Fontes de 8 bits para incluir as fontes do alfabeto brasileiro)
+\usepackage[UTF8]{inputenc}                        % Codificação unicode "UTF8"
+\usepackage{microtype}                             % Melhorias na justificação (Evita bad/underfullbox)
+\usepackage{indentfirst}                           % Indenta o primeiro parágrafo da seção
+%\usepackage{lastpage}                              % Conta o número total de páginas (P/ Ficha catalográfica)
+
+\usepackage{multirow}                              % Suporte a células de tabelas com multilinhas
+\usepackage{amssymb}                               % Símbolos matemáticos
+\usepackage{enumitem}                              % Melhoria no suporte aos ambientes de numeração
+
+\usepackage{color}                                 % Suporte a cores
+\definecolor{blue}{RGB}{41,5,195}                  % Alterando o aspécto da cor Azul
+\usepackage{graphicx}                              % Suporte a gráficos e figuras
+
+\usepackage[alf]{abntex2cite}                      % Citações no padrão ABNT
+
+
+
+%%%
+%%% NOVOS COMANDOS
+%%%
+
+\renewcommand{\imprimircapa}{
+	\begin{capa}%
+		\center
+		\begin{minipage}{1.0\textwidth}
+			\begin{minipage}[c]{0.14\textwidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{figuras/brasao_ufba.jpg}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[c]{0.7\textwidth}
+				\centering
+				\ABNTEXchapterfont\large\textbf{\MakeUppercase\imprimirinstituicao}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[c]{0.14\textwidth}
+				\includegraphics[width=0.9\textwidth]{figuras/brasao_poli.jpg}
+			\end{minipage}
+		\end{minipage}
+		\\
+		\vspace*{2cm}
+		{\ABNTEXchapterfont\large\MakeUppercase\imprimirautor}
+		\vfill
+		{\ABNTEXchapterfont\bfseries\LARGE\MakeUppercase\imprimirtitulo}
+		\vfill
+		{\large\MakeUppercase\imprimirlocal} \\
+		{\large\MakeUppercase\imprimirdata}
+		\vspace*{1cm}
+	\end{capa}
+}
+
+\renewcommand{\imprimirfolhaderosto}{
+	\begin{folhaderosto}%
+		\centering
+		{\ABNTEXchapterfont\large\textbf{\MakeUppercase\imprimirinstituicao}}\\
+		\vspace*{2cm}
+		{\ABNTEXchapterfont\large\MakeUppercase\imprimirautor}\\
+		\vfill
+		{\ABNTEXchapterfont\bfseries\LARGE\MakeUppercase\imprimirtitulo}
+		\vspace*{0.5cm}
+		\begin{center}
+			\hspace{.35\textwidth}
+			\begin{minipage}{.5\textwidth}
+				\large\imprimirpreambulo
+				\vspace*{0.5cm}
+			\end{minipage}%
+		\end{center}
+		{\large Orientador: Prof. Dr. \imprimirorientador\\
+		\vspace*{\fill}}
+		{\large\MakeUppercase\imprimirlocal} \\
+		{\large\MakeUppercase\imprimirdata}
+		\vspace*{1cm}
+	\end{folhaderosto}
+}
+
+\newcommand{\imprimirfolhadeaprovacao}[2]{
+	\begin{folhadeaprovacao}%
+		\centering
+		{\ABNTEXchapterfont\large\textbf{\MakeUppercase{Termo de Aprovação}}}\\
+		\vspace*{0.5cm}
+		{\ABNTEXchapterfont\large\MakeUppercase\imprimirautor}\\
+		\vspace*{4cm}
+		{\ABNTEXchapterfont\bfseries\LARGE\MakeUppercase\imprimirtitulo}
+		\vspace*{0.5cm}
+		\begin{center}
+			\hspace{.35\textwidth}
+			\begin{minipage}{.5\textwidth}
+				\large
+				Este Trabalho de Graduação foi julgado adequado para a obtenção do grau de Engenheiro Eletricista e aprovado em sua forma final pela Comissão Examinadora e pelo Colegiado do Curso de Graduação em Engenharia Elétrica da Universidade Federal da Bahia.
+				\vspace*{0.5cm}
+			\end{minipage}%
+		\end{center}
+		\vfill
+		\assinatura{Prof. Dr. \imprimirorientador \\Orientador\\}
+		\assinatura{#1 \\ Examinador\\}
+		\assinatura{#2 \\ Examinador}
+		\vspace*{2cm}
+		{\large\MakeUppercase\imprimirlocal} \\
+		{\large\MakeUppercase\imprimirdata}
+		\vspace*{1cm}
+	\end{folhadeaprovacao}
+}
+
+\newcommand{\imprimirdedicatoria}[1]{
+	\begin{dedicatoria}
+		\vspace*{\fill}
+		\centering
+		\noindent
+		\textit{#1}
+		\vspace*{\fill}
+	\end{dedicatoria}
+}
+
+\newcommand{\imprimirepigrafe}[2]{
+	\begin{epigrafe}
+		\vspace*{\fill}
+		\begin{flushright}
+			\textit{``#1''\\
+				(#2)}
+		\end{flushright}
+	\end{epigrafe}
+}
+
+%%%
+%%% Dados do trabalho
+%%%
+
+\instituicao{Universidade Federal da Bahia\par
+	Escola Politécnica\par
+	Curso de Graduação em Engenharia Elétrica
+}
+
+\tipotrabalho{Trabalho Final de Graduação}
+
+\preambulo{Trabalho apresentado ao Curso de Graduação em Engenharia Elétrica da Universidade Federal da Bahia como parte dos requisitos para a obtenção do título de Engenheiro Eletricista.}
+
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+	pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+	colorlinks=true,       		% false: boxed links; true: colored links
+	linkcolor=black,          	% color of internal links
+	citecolor=black,        		% color of links to bibliography
+	filecolor=black,      		% color of file links
+	urlcolor=black,
+	bookmarksdepth=4
+}
+\makeatother
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip

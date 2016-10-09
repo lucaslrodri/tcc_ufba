@@ -1,0 +1,73 @@
+\input{header}
+
+\titulo{Uso do Beaglebone Black como um sistema de aquisição de dados}
+
+\autor{Lucas Lima Rodrigues}
+
+\local{Salvador}
+
+\data{2016}
+
+\orientador{Antônio Cezar de Castro Lima}
+
+\makeindex
+
+\AtBeginDocument{
+	\frenchspacing 
+	\pretextual
+	
+	\imprimircapa
+	\imprimirfolhaderosto
+	
+	\imprimirfolhadeaprovacao{Prof. Dra. Ana Isabela Araújo Cunha}{Prof. Me. Leroy Umasi Ramos}
+	
+	\imprimirdedicatoria{
+		Este trabalho é dedicado e minha família, minha vó minha tia e todos os amigos e professores que acreditaram em mim.
+	}
+	
+	\imprimirepigrafe{O único lugar aonde o sucesso vem antes do trabalho é no dicionário.}{Albert Einstein}
+	
+	\input{agradecimentos}
+	
+	\input{resumos}
+	
+	%Sumário
+	\tableofcontents*
+	\cleardoublepage
+	
+	%lista de figuras
+	\pdfbookmark[0]{\listfigurename}{lof}
+	\listoffigures*
+	\cleardoublepage
+	
+	%lista de tabelas
+	\pdfbookmark[0]{\listtablename}{lot}
+	\listoftables*
+	\cleardoublepage
+	
+	%Lista de siglas
+	\input{siglas}
+	\cleardoublepage
+	
+	\textual
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+}
+
+
+\begin{document}
+	\chapter{Introdução}
+	\label{ch:introduction}
+	\input{introducao}
+	
+	\chapter{Fundamentação Teórica}
+	\label{ch:theory}
+	\input{fundamentacao}
+	
+	
+	
+	\postextual
+		
+	\bibliography{biblio}
+	
+\end{document}

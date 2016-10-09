@@ -1,0 +1,30 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: monografia.aux
+The style file: abntex2-alf.bst
+Database file #1: abntex2-options.bib
+Database file #2: biblio.bib
+Warning--entry type for "tecmundopcie" isn't style-file defined
+--line 10 of file biblio.bib
+Warning--entry type for "lojanational" isn't style-file defined
+--line 18 of file biblio.bib
+Warning--entry type for "dataqcasada" isn't style-file defined
+--line 25 of file biblio.bib
+Warning--entry type for "tenissozinho" isn't style-file defined
+--line 31 of file biblio.bib
+Warning--entry type for "tecmundopi" isn't style-file defined
+--line 38 of file biblio.bib
+Warning--entry type for "tedarduino" isn't style-file defined
+--line 47 of file biblio.bib
+Warning--entry type for "comparisonelinux" isn't style-file defined
+--line 54 of file biblio.bib
+Warning--entry type for "sitebbbang" isn't style-file defined
+--line 80 of file biblio.bib
+Warning--entry type for "guicncbbb" isn't style-file defined
+--line 95 of file biblio.bib
+Warning--campo year vazio ou faltando em dataqcasada
+Warning--campo title vazio em daqbook
++---------------------------------------------------------+
+| Estilo bibliográfico abntex2-alf.bst versão v-1.9.6           |
+| Em caso de dúvidas ou problemas com este estilo procure |
+| http://www.abntex.net.br/                               |
++---------------------------------------------------------+
+(There were 11 warnings)

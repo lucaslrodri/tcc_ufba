@@ -1,0 +1,89 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.6 }
+
+\bibitem[blakebevin 2010]{tenissozinho}
+\abntrefinfo{blakebevin}{BLAKEBEVIN}{2010}
+{BLAKEBEVIN. \emph{TPower Laces- the Auto lacing shoe}. 2010.
+Dispon{\'\i}vel em:
+  \url{http://www.instructables.com/id/Power-Laces-the-Auto-lacing-shoe/}.}
+
+\bibitem[Coley 2013]{bbbdatasheet}
+\abntrefinfo{Coley}{COLEY}{2013}
+{COLEY, G. Beaglebone black system reference manual.
+In:  TEXAS INSTRUMENTS. A5.2. Dallas, 2013.
+Dispon{\'\i}vel em:
+  \url{https://cdn-shop.adafruit.com/datasheets/BBB\_SRM.pdf}.}
+
+\bibitem[DATAQ Instruments Inc.]{dataqcasada}
+\abntrefinfo{DATAQ Instruments Inc.}{DATAQ INSTRUMENTS INC.}{}
+{DATAQ INSTRUMENTS INC. \emph{DI-149 USB Data Acquisition Bundle}.
+Dispon{\'\i}vel em: \url{http://www.dataq.com/products/di-149/bundle.html}.
+  Acesso em: 26 de setembro de 2016.}
+
+\bibitem[DiCola 2014]{comparisonelinux}
+\abntrefinfo{DiCola}{DICOLA}{2014}
+{DICOLA, T. \emph{Embedded Linux Board Comparison}. 2014.
+Dispon{\'\i}vel em:
+  \url{https://cdn-learn.adafruit.com/downloads/pdf/embedded-linux-board-comparison.pdf}.}
+
+\bibitem[Koen 2015]{sitebbbang}
+\abntrefinfo{Koen}{KOEN}{2015}
+{KOEN. \emph{The Ångström Distribution}. 2015.
+Dispon{\'\i}vel em: \url{http://wp.angstrom-distribution.org/introduction/}.
+  Acesso em: 05 de outubro de 2016.}
+
+\bibitem[Machado 2012]{tecmundopi}
+\abntrefinfo{Machado}{MACHADO}{2012}
+{MACHADO, J. \emph{Raspberry Pi: computador de 50 reais pode revolucionar a
+  informática}. 2012.
+Dispon{\'\i}vel em:
+  \url{http://www.tecmundo.com.br/hardware/23175-raspberry-pi-como-um-computador-de-50-reais-pode-revolucionar-a-informatica.htm}.}
+
+\bibitem[Measurement Computing Corporation 2012]{daqbook}
+\abntrefinfo{Measurement Computing Corporation}{MEASUREMENT COMPUTING
+  CORPORATION}{2012}
+{MEASUREMENT COMPUTING CORPORATION.
+In:  \underline{\ \ \ \ \ \ \ \ }. \emph{Data Aquisition Handbook}. 3. ed.
+  Norton, 2012.
+Dispon{\'\i}vel em:
+  \url{http://www.mccdaq.com/pdfs/anpdf/Data-Acquisition-Handbook.pdf}. Acesso
+  em: 26 de setembro de 2016.}
+
+\bibitem[Molloy 2014]{derekbbb}
+\abntrefinfo{Molloy}{MOLLOY}{2014}
+{MOLLOY, D. \emph{Exploring BeagleBone: Tools and Techniques for Building with
+  Embedded Linux}. Wiley, 2014.
+ISBN 1118935128. Dispon{\'\i}vel em:
+  \url{http://www.exploringbeaglebone.com/}.}
+
+\bibitem[National Instruments 2016]{lojanational}
+\abntrefinfo{National Instruments}{NATIONAL INSTRUMENTS}{2016}
+{NATIONAL INSTRUMENTS. \emph{Aquisição de dados}. 2016.
+Dispon{\'\i}vel em: \url{http://www.ni.com/data-acquisition/pt/}. Acesso em: 25
+  de setembro de 2016.}
+
+\bibitem[Pereira 2012]{tecmundopcie}
+\abntrefinfo{Pereira}{PEREIRA}{2012}
+{PEREIRA, A.~L. \emph{O que é PCI-Express?} 2012.
+Dispon{\'\i}vel em:
+  \url{http://www.tecmundo.com.br/hardware/1130-o-que-e-pci-express-.htm}.
+  Acesso em: 26 de setembro de 2016.}
+
+\bibitem[Practical Micro 2014]{guicncbbb}
+\abntrefinfo{Practical Micro}{PRACTICAL MICRO}{2014}
+{PRACTICAL MICRO. \emph{K9 CNC I/O Cape for the BeagleBone Black}. Lorton,
+  2014.
+Dispon{\'\i}vel em: \url{http://www.pmdx.com/PMDX-432}.}
+
+\bibitem[TED Conferences, LLC 2012]{tedarduino}
+\abntrefinfo{TED Conferences, LLC}{TED CONFERENCES, LLC}{2012}
+{TED CONFERENCES, LLC. \emph{Massimo Banz: How Arduino is open-sourcing
+  imagination}. 2012.
+Dispon{\'\i}vel em:
+  \url{https://www.ted.com/talks/massimo\_banzi\_how\_arduino\_is\_open\_sourcing\_imagination}.}
+
+\end{thebibliography}
