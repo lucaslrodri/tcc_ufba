@@ -65,12 +65,47 @@ As distribuições baseadas no Debian já vem com as interfaces gráficas e paco
 
 \subsection{Instalando uma nova distribuição no BBB}
 
-Na seção \ref{ch:bbb_elinux} falo-se da importância de utilizar a distribuição Debian. Portanto, se o Beaglebone Black adquirido for anterior a rev.3 deve-se instalar o Debian 7.5 Wheezy, versão de 14/05/2014. Caso o Beaglebone também tenha uma versão do Debian superior a esta é recomendado fazer o \emph{downgrade} para a versão 7.5, principalmente, se o Debian 
+Na seção \ref{ch:bbb_elinux} falo-se da importância de utilizar a distribuição Debian, portanto, se o Beaglebone Black adquirido for anterior a rev.3 deve-se instalar o Debian 7.5 Wheezy, versão de 14/05/2014. Caso o Beaglebone venha uma versão do Debian superior a esta é recomendado fazer o \emph{downgrade} para a versão 7.5, principalmente, se for a versão 8 Jessie ou superior. A versão 7.5 foi projetada pensando, também, nas revisões anteriores a rev. 3, por isso ocupa um pouco menos de 2 Gb, sobrando aproximadamente 2 Gb dos 4Gb da eMMC do BBB, caso este tenha sido adquirido depois de 2014. Esse espaço extra será o suficiente para instalar novos programa, módulos e gerar grandes arquivos de dados. Uma outro motivo fazer o \emph{downgrade} é que neste trabalho e na maioria das bibliografias encontrada na literatura atualmente faz o uso desta versão do Debian, portanto pode haver procedimentos que não sejam os mesmos em versões diferentes, dificultando a reprodução dos experimentos feitos nesta monografia. 
 
-\section{Primeiros passos com o Beaglebone Black}
+A primeira coisa que deve ser feita para instalar uma nova distribuição é fazer o \emph{download} do sistema operacional, que pode ser baixado na página que contém as  últimas imagens pra Beaglebone Black (\emph{https://beagleboard.org/latest-images}). Caso o leitor desta monografia esteja lendo-a muito tempo depois da sua publicação existe uma alternativa no domínio oficial do Debian (\emph{https://debian.beagleboard.org/images/}), ou ainda, no site do E-Linux (\emph{http://elinux.org/Beagleboard:BeagleBoneBlack\_Debian}). No site das últimas imagens para BBB existem duas versões do Debian 7.5 de 14/05/2014. Uma delas é para utilizar o sistema operacional pelo cartão SD (\emph{without flashing the eMMC}), enquanto a outra grava o sistema operacional na eMMC (\emph{eMMC flasher}). É preferível que o sistema operacional seja instalado na memoria interna do Beaglebone, pois, além desta ter uma taxa de leitura e escrita maior que o cartão SD, ficamos com o \emph{slot} SD livre para ser utilizado em outras ocasiões.
+
+O formato do arquivo baixado é \emph{.img.xz} que é um formato de compactação bastante comum no Linux. Caso o usuário esteja usando o Windows talvez seja necessário fazer o \emph{download} de alguma ferramenta capaz de descompactar este formato de arquivo, visto que alguns aplicativos de descompactação, como WinRar, não trabalham com este tipo de arquivo. Uma sugestão de descompactador capaz de trabalhar com este formato de compactação é o 7-Zip (Disponível em: \emph{http://www.7-zip.org/}), gratuito, \emph{open source} e sem propagandas.
+
+Enquanto a imagem do sistema operacional está sendo baixada, deve-se fazer o \emph{download} de outro programa para gravar a imagem no cartão de memória. Uma sugestão dada pela Wiki do E-Linux é o Win32 Disk Imager (https://sourceforge.net/projects/win32diskimager/) \cite{elinuxupdatebbb}. Quando ambos os arquivos estiverem baixados, descompacte a imagem do Debian que está no formato \emph{.img.xz} e irá obter um arquivo \emph{.img}. Insira o cartão SD no leitor de cartão do seu computador. Abra o Disk Imager selecione a letra correspondente a partição do cartão de memória, selecione a imagem do Debian e clique em gravar como mostra na figura \ref{figura:update_bbb}. Irá aparecer uma caixa de mensagem explicando que esta operação pode danificar os dados no cartão, clique em \emph{yes} espere o processo ser finalizado.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figuras/update_bbb.png}
+	\caption{Gravando a imagem do Debian 7.5 de 14/05/2014 no cartão SD (Próprio Autor)}
+	\label{figura:update_bbb}
+\end{figure}
+
+Depois do processo de gravação finalizar com sucesso retire o cartão SD do cartão e com o BBB ainda desligado, insira o microSD no \emph{slot} apropriado (Item 12 na figura \ref{figura:bbb_components}). Antes de ligar a placa, mantenha pressionado o \emph{Boot Switch} (Item 8 na figura \ref{figura:bbb_components}), e ainda com o botão pressionado, conecte a porta USB \emph{Client} do Beaglebone (Item 14 na figura \ref{figura:bbb_components}) e ao computador ou alguma fonte de alimentação. Depois dos \emph{User LEDs} (Item 7 na figura \ref{figura:bbb_components}) começarem a piscar solte o \emph{Boot Switch}. A partir daí, o sistema operacional será instalado na eMMC o processo dura cerca de 30 a 40 minutos, durante este tempo não desligue o Beaglebone. Quando a instalação estiver concluída os 4 \emph{User LEDs} irão parar de piscar e ficarão acesos. Neste momento desconecte oo cabo USB da fonte de alimentação retire o cartão SD e conecte novamente o BBB ao computador. Será montada uma partição FAT com o nome \emph{BeagleBone Getting Started} clique nela e abra o arquivo \emph{ID.txt} com o bloco de notas. Se aparecer \emph{BeagleBoard.org BeagleBone Debian Image 2014-04-23
+} a atualização da Distro foi realizada com sucesso (Figura \ref{figura:check_bbb_version}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figuras/check_bbb_version.png}
+	\caption{Verificando a atualização do Debian 7.5 foi instalada com sucesso. (Próprio Autor)}
+	\label{figura:check_bbb_version}
+\end{figure}
+
+\subsection{Comunicando com o BeagleBone Black}
+
+O Beaglebone Black \emph{vanilla}, ou seja, da forma como veio de fábrica, não tem nenhuma interface de interação com o usuário além de alguns \emph{push-bottons} e LEDs indicadores (Itens 7 e 8 da figura \ref{figura:bbb_components}). E isso não é o suficiente para programar ou adicionar alguma nova função a placa de desenvolvimento, a menos que o usuário use o BeagleBone ligado a um monitor, mouse e teclado. Para interagir com o \emph{board computer} sem a necessidade desses aparelhos é necessário se comunicar com o BBB através de um computador hospedeiro. Existem diversas formas de fazer esta comunicação, mas esta seção irá focar na protocolo SSH e no \emph{serial debug}.
+
+$$Vem uma figura aqui$$
+
+O Linux, Mac e sistemas operacionais baseados no Unix, já vem com suporte nativo a SSH através do terminal. Usuários do Windows podem experimentar o \emph{Windows 10 bash shelll}, porém esta solução no momento  , entretanto, usuários do Windows devem baixar um cliente SSH como o PuTTY (Disponível em: \emph{http://www.putty.org/}). Antes de iniciar o processo de comunicação é importante atualizar os \emph{drivers} disponivel em: \emph{http://beagleboard.org/static/beaglebone/latest/README.htm}. Depois da atualização feita e o PuTTY baixado abra este último aplicativo. No campo \emph{Host Name (or IP address)} escreva o IP do BeagleBone que por padrão é $192.168.7.2$. Deixe as outras opções padrões como mostra a figura \ref{}
+
+
+\subsection{Programando no BeagleBone Black}
 \label{ch:bbb_firststeps}
 
-Ao conectar o Beaglebone Black ao computador através da porta USB Client (Item 14 na figura\ref{figura:bbb_components}) será montada uma partição FAT com alguns arquivos 
+O fato do BeagleBone Black utilizar Linux como sistema operacional o usuário programe em uma infinidade de linguagens de programação, entretanto algumas delas necessitam de passos adicionais. Esta que não vêm instaladas por padrão não serão abordadas nesta seção.
+
+Ao conectar o Beaglebone Black ao computador através da porta USB Client (Item 14 na figura\ref{figura:bbb_components}) será montada a partição FAT \emph{BeagleBone Getting Star
+
 
 Nas seções anteriores vimos os componentes do BBB e 
 

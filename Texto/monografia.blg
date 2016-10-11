@@ -20,6 +20,8 @@ Warning--entry type for "sitebbbang" isn't style-file defined
 --line 80 of file biblio.bib
 Warning--entry type for "guicncbbb" isn't style-file defined
 --line 95 of file biblio.bib
+Warning--entry type for "elinuxupdatebbb" isn't style-file defined
+--line 103 of file biblio.bib
 Warning--campo year vazio ou faltando em dataqcasada
 Warning--campo title vazio em daqbook
 +---------------------------------------------------------+
@@ -27,4 +29,4 @@ Warning--campo title vazio em daqbook
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-(There were 11 warnings)
+(There were 12 warnings)
