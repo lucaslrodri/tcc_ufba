@@ -1,0 +1,55 @@
+import Adafruit_BBIO.UART as UART
+import beaglebone_pru_adc as adc
+import serial
+import time
+import threading
+
+class captureThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.numSamples = 10000
+        self.captureSamples = ()
+        self.offset = 100
+    def run(self):
+        self.captureData()
+        
+    def captureData(self):
+        capture = adc.Capture()
+        capture.oscilloscope_init(adc.OFF_VALUES, self.numSamples) # captures AIN0 - the first elt in AIN array
+        capture.start()
+        
+        while(True):
+            if capture.oscilloscope_is_complete():
+                break
+        
+        capture.stop()
+        capture.wait()
+        #print("Buffer atualizado com %d amostras."%(self.numSamples,))
+        self.captureSamples = capture.oscilloscope_data(self.numSamples)
+        capture.close()
+        self.captureData()
+ 
+UART.setup("UART2")
+thread1 = captureThread()
+thread1.start()
+channelSize = 100
+numChannel = int((thread1.numSamples-thread1.offset)/channelSize-1)
+ser = serial.Serial(port = "/dev/ttyO2", baudrate=460800)
+ser.close()
+print(ser.name)
+while True:
+    currentCapture = thread1.captureSamples
+    for i in range(0,numChannel):
+        currentOffset = thread1.offset+i*channelSize
+        lastOffset = currentOffset+channelSize
+        captureData = ''
+        for x in currentCapture[currentOffset:lastOffset]:
+            captureData += str(x) + ' '
+        captureData += '\n'
+        ser.open()
+        ser.write(captureData)
+        ser.close()
+     
+# Eventually, you'll want to clean up, but leave this commented for now, 
+# as it doesn't work yet
+#UART.cleanup()

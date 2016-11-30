@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interface de controle do ADC</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="static/style.css" rel="stylesheet" type="text/css">
+		<script language="javascript" type="text/javascript" src="static/jquery.min.js"></script>
+		<script language="javascript" type="text/javascript" src="static/jquery.flot.min.js"></script>
+    	<script type="text/javascript">
+    
+    	$(function() {
+    
+    		var y_axis = {{ web_data }};
+    		
+    		var x_axis = 0;
+    		
+    		var y_type = {{ ytype }};
+    		 
+    		var y_min = {{ ymin }};
+    		
+    		var y_max = {{ ymax }};
+    		
+    		var series;
+    		
+    		function constructData(){
+    		    series = [];
+        		for (i=0;i<=y_axis.length;i++){
+        		    series.push([x_axis,y_axis[i]]);
+        		    x_axis++;
+        		}
+    		}
+    		
+    		var window_Samples = {{  windowSamples }};
+    		
+    		constructData();
+    		
+    		var get_data = true;
+    		
+    		var refresh_type = {{ interface_refreshType }};
+    		
+    		var refresh_time = {{ interface_frameRate }};
+    		
+    		function plotData(){
+    		    var current_data = series.splice(0,window_Samples);
+    		    if (y_type == 0){
+    		        $.plot("#placeholder", [current_data]);
+    		    }else{
+    		        $.plot("#placeholder", [current_data], {yaxis: {
+    		            min: y_min,
+    		            max: y_max}
+    		        });
+    		    }
+    		}
+    		
+    		function onDataReceived(data){
+    		    y_axis = data;
+    		    if(refresh_type == 1){
+    		        constructData();
+        		    setTimeout(plotData, 10);
+    		        $('#submit-result').text('Atualizado com sucesso.');
+    		        $('#submit-result-box').show(0);
+    		    }
+    		}
+    		
+    		function onGetData(){
+    		      $.ajax({
+    			      url: '/senddata',
+    			      type: "POST",
+    			      dataType: "json",
+    			      success: onDataReceived,
+            	      error: function(error){
+            	            console.log(error);
+            		        $('#submit-result').text('Erro ao atualizar os dados.');
+            		        $('#submit-result-box').show(0);
+            	      }
+    		      });
+    		}
+    		
+    		
+    		function getData(){
+    		    if((series.length <= y_axis.length/2)&&(get_data == true)){
+    		        get_data = false;
+                    onGetData();
+    		    }
+    		    if (series.length <= window_Samples){
+    		        if (y_type == 0){
+            		    $.plot("#placeholder", [series]);
+    		        }else{
+    		            $.plot("#placeholder", [series], {yaxis: {
+    		                min: y_min,
+    		                max: y_max}
+    		            });
+    		        }
+            		constructData();
+                    get_data = true;
+    		    }else{
+        		    plotData();
+    		    }
+				if (refresh_type == 0){
+    		        setTimeout(getData, refresh_time);
+    		    }
+    		}
+    		
+    		if (refresh_type == 0){
+    		    setTimeout(getData, refresh_time);
+    		}
+    		
+    		$('#save-button').click(function(){
+    		    var csv = y_axis.join();
+    		    csv = csv.replace(new RegExp(',', 'g'),'\n');
+    		    var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+                $(this)
+                    .attr({
+                        'download': 'dados.csv',
+                        'href': csvData,
+                        'target': '_blank'
+                });
+    		});
+    		
+    		$('#close-submit').click(function(){
+    		    $('#submit-result-box').hide(0);
+    		});
+    		
+    		$('#refresh-button').click(function(){
+    		    if(refresh_type == 1){
+        		    onGetData();
+    		    }
+    		    else{
+    		        $('#submit-result').text('Não é possível atualizar no modo continuo.');
+    		        $('#submit-result-box').show(0);
+    		    }
+    		});
+    		
+    		$("#reset-button").click(function(){
+    		    x_axis = 0;
+    		    if(refresh_type == 1){
+    		        constructData();
+    		        setTimeout(plotData, 10);
+    		        $('#submit-result').text('Eixo x resetado com sucesso.');
+    		        $('#submit-result-box').show(0);
+    		    }
+    		});
+    		
+    		
+        	$('#config-button').click(function(){
+        	    refresh_time = $('#interface_frameRate').val();
+        	    window_Samples = $('#adc_windowSize').val();
+        	    if ($("#interface_refreshContinum").is(':checked')) { refresh_type = 0;
+        		}else{ refresh_type = 1;}
+        		if (refresh_type == 0){
+    		        setTimeout(getData, refresh_time);
+    		        $( "#refresh-button" ).prop( "disabled", true );
+    		    }else{
+    		        $( "#refresh-button" ).prop( "disabled", false );
+    		    }
+    		    if ($("#ytype_auto").is(':checked')){ y_type = 0;}
+    		    else{ y_type = 1;}
+    		    y_min = $('#ymin').val();
+    		    y_max = $('#ymax').val();
+        		$.ajax({
+        			url: '/config',
+        			data: $('form').serialize(),
+        			type: 'POST',
+        			success: function(response){
+        				console.log(response);
+        				$('#submit-result').text('Configurado com sucesso.');
+        				$('#submit-result-box').show(0);
+        			},
+        			error: function(error){
+        				console.log(error);
+        				$('#submit-result').text('Erro ao configurar.');
+        				$('#submit-result-box').show(0);
+        			}
+        		});
+        	}); 
+    	});
+    	</script>
+    </head>
+    <body>
+		<div id="header">
+			<h2>Toolbox</h2>
+		</div>
+		<div id="content">
+			<div class="demo-container">
+				<div id="placeholder" class="demo-placeholder"></div>
+			</div>
+            <div class="config-container">
+				<form role="form">
+				<div id="submit-box">
+				    <a href="#" id="save-button" class="export">Salvar dados</a>
+				    <input type="button" id="refresh-button" value="Atualizar" {% if interface_refreshType is equalto 0 %} disabled {% endif%}>
+				    <input type="button" id="reset-button" value="Resetar eixo x">
+				    <input type="button" id="config-button" value="Reconfigurar">
+				<div>
+				<div id="submit-result-box"><span id="submit-result"></span><span id="close-submit">×</span></div>
+				<table>
+					<thead>
+						<th>Configurações:</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="config-title">Número de amostras:</td>
+							<td class="config-content"><input type="number" id="adc_captureSamples" name="adc_captureSamples" min="0" max="64000" value = "{{ noSamples }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Delay de captura (ms):</td>
+							<td class="config-content"><input type="number" id="adc_captureDelay" name="adc_captureDelay" min="0" max="60"  value = "{{ delayADC }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Velocidade de captura (1/Tsample):</td>
+							<td class="config-content"><input type="number" id="adc_captureSpeed" name="adc_captureSpeed" min="0" max="999" value = "{{ speedADC }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Offset de captura (Amostras):</td>
+							<td class="config-content"><input type="number" id="adc_captureOffset" name="adc_captureOffset" min="0" max="10000" value = "{{ offsetADC }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Tamanho da janela (Amostras):</td>
+							<td class="config-content"><input type="number" id="adc_windowSize" name="adc_windowSize" min="0" max="64000" value = "{{ windowSamples }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Eixo Y (min/max):</td>
+							<td class="config-content"><input type="radio" name="ytype" id="ytype_auto" value="0" {%if ytype is equalto 0 %} checked {% endif%} class="config-radio"> Automático</td>
+							<td class="config-content"><input type="radio" name="ytype" value="1" id="ytype_defined"  {% if ytype is equalto 1 %} checked {% endif%} class="config-radio"> Personalizado</td>
+							<td class="config-content"><input type="number" id="ymin" name="ymin" min="0" max="4094" value = "{{ ymin }}" required></td>
+							<td class="config-content"><input type="number" id="ymax" name="ymax" min="1" max="4095" value = "{{ ymax }}" required></td>
+						</tr>
+						<tr>
+							<td class="config-title">Taxa de atualização (ms):</td>
+							<td class="config-content"><input type="radio" name="interface_refreshType" id="interface_refreshContinum" value="0" {% if interface_refreshType is equalto 0 %} checked {% endif%} class="config-radio"> Continuo</td>
+							<td class="config-content"><input type="radio" name="interface_refreshType" value="1" id="interface_noRefresh"  {% if interface_refreshType is equalto 1 %} checked {% endif%} class="config-radio"> Sem atualização</td>
+							<td class="config-content"><input type="number" name="interface_frameRate" id="interface_frameRate" value = "{{ interface_frameRate }}" min="0" max="60000" required></td>
+						</tr>
+					</tbody>
+				</table>
+				</form>
+			</div>
+	    </div>
+    </body>
+</html>

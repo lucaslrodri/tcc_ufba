@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interface de controle do ADC</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="static/style.css" rel="stylesheet" type="text/css">
+		<script language="javascript" type="text/javascript" src="static/jquery.min.js"></script>
+		<script language="javascript" type="text/javascript" src="static/jquery.flot.min.js"></script>
+    	<script type="text/javascript">
+    
+    	$(function() {
+    
+    		var y_axis = {{ web_data['internal'] }};
+    		
+    		var y_axis_external = {{ web_data['external'] }}
+    		
+    		var x_axis = 0;
+    		
+    		var series;
+    		
+    		function constructData(){
+    		    series = [];
+    		    seriesExternal = []
+    		    x_axis = 0;
+        		for (i=0;i<=y_axis.length;i++){
+        		    series.push([x_axis,y_axis[i]]);
+        		    seriesExternal.push([x_axis,y_axis_external[i]])
+        		    x_axis++;
+        		}
+    		}
+    		
+    		constructData();
+    		
+    		var get_data = true;
+    		
+    		var refresh_time = 200;
+    		
+    		function plotData(){
+    		    var current_data = series.splice(0,100);
+    		    var current_dataExternal = seriesExternal.splice(0,100);
+    		    $.plot("#placeholder", [current_data, current_dataExternal]);
+    		}
+    		plotData();
+    	});
+    	</script>
+    </head>
+    <body>
+		<div id="header">
+			<h2>Toolbox</h2>
+		</div>
+		<div id="content">
+			<div class="demo-container">
+				<div id="placeholder" class="demo-placeholder"></div>
+			</div>
+            <div class="config-container">
+				
+			</div>
+	    </div>
+    </body>
+</html>
